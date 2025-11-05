@@ -39,7 +39,8 @@ def Load_data_for_homepage(retries=3, timeout=10):
                         poster_url = f"{IMAGE_URL}{poster_path}"
                         print(f"Poster URL for {movie_name}: {poster_url}")
                     else:
-                        print("No poster available")
+                        
+                        print(f"No poster available for {movie_name}")
                     break
 
 
