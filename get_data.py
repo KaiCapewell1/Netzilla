@@ -3,13 +3,11 @@ import requests
 import os
 from movies import era_movies
 
-# -- get API Key
 load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
 BASE_URL = os.getenv("BASE_URL")
 IMAGE_URL = os.getenv("IMAGE_URL")
-
 
 def search_api(type, movie_name, movie_year):
     params = {"query": movie_name, "language": "en-US", "api_key": API_KEY,"year": movie_year}
@@ -17,11 +15,7 @@ def search_api(type, movie_name, movie_year):
     response.raise_for_status()
     return response.json().get("results", [])
 
-
-
-
-
-def Load_data_for_homepage(retries=3, timeout=10):
+def Load_images(retries=3, timeout=10):
     for era, movies_list in era_movies.items():
         print(f"\n--- Era: {era} ---")
         for movie in movies_list:
@@ -32,12 +26,12 @@ def Load_data_for_homepage(retries=3, timeout=10):
 
             while attempts > 0:
                 try:
-                   results = search_api("movie", movie_name, movie_year)
+                   results = search_api("movie", movie_name, movie_year) # Search for movies first
 
-                   if not results:
+                   if not results: # If no movie results, change type to TV shows and search again
                         print(f"No movie results found for {movie_name}, trying TV shows...")
                         results = search_api("tv", movie_name, movie_year)
-                   if not results:
+                   if not results: # if still no results, break the loop
                         print(f"No TV show results found for {movie_name} either.")
                         break
 
@@ -59,5 +53,5 @@ def Load_data_for_homepage(retries=3, timeout=10):
                 
 
 if __name__ == "__main__":
-    Load_data_for_homepage()
+    Load_images()
 
