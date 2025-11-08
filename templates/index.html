@@ -3,13 +3,21 @@
 <head>
     <title>Netzilla</title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
     <div class="topnav">
         <img class="logo" src="https://preview.redd.it/8g5hszxn3bn61.jpg?width=1080&crop=smart&auto=webp&s=83c03e68724e08e0921a0868dfb47ecbfdac7407" alt="Logo" />
         <h1 class="logo_text">Net-zilla</h1>
+    </div>
+
+    <div class ="posters">
+        {% for movie_name, poster_url in posters %}
+            <div class="poster">
+                <img src="{{ poster_url }}" alt="{{movie_name}}">
+            </div>
+        {% endfor %}
     </div>
 
     <div class="bottomLine"></div>
