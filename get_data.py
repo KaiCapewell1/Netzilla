@@ -2,12 +2,15 @@ from dotenv import load_dotenv
 import requests
 import os
 from movies import era_movies
+import netzilla
 
 load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
 BASE_URL = os.getenv("BASE_URL")
 IMAGE_URL = os.getenv("IMAGE_URL")
+all_posters = []
+
 
 def search_api(type, movie_name, movie_year):
     params = {"query": movie_name, "language": "en-US", "api_key": API_KEY,"year": movie_year}
@@ -40,16 +43,23 @@ def Load_images(retries=3, timeout=10):
                    poster_path = result.get("poster_path")
                    if poster_path:
                         poster_url = f"{IMAGE_URL}{poster_path}"
-                        print(f"Poster URL for {movie_name}-{movie_year}: {poster_url}")
+                        print(f"Poster URL for {movie_name}: {poster_url}")
+
+                        all_posters.append(poster_url)
+                        
                    else:
                         
                         print(f"There are no poster(s) available for {movie_name}")
                    break
 
+            
+               
+
 
                 except Exception as e:
                     print(f"Error fetching data for {movie_name}: {e}")
                     retries -= 1
+    return all_posters
                 
 
 if __name__ == "__main__":
