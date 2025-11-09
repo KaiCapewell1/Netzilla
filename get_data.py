@@ -33,10 +33,10 @@ def fetch_poster(movie):
         
         poster_path = results[0].get("poster_path")
         if poster_path:
-            return (movie_name, f"{IMAGE_URL}{poster_path}")
+          return (movie_name, movie_year, f"{IMAGE_URL}{poster_path}")
     except Exception as e:
         print(f"Error fetching poster for {movie_name} ({movie_year}): {e}")
-    return (movie_name, None)
+    return (movie_name, movie_year, None)
 
 
 def Load_images():
@@ -49,12 +49,18 @@ def Load_images():
                 futures.append(executor.submit(fetch_poster, movie))
 
         for fut in as_completed(futures):
-            movie_name, poster_url = fut.result()
+            movie_name, movie_year, poster_url = fut.result()
             if poster_url:
-                all_posters.append((movie_name, poster_url))
+                print(f"Adding poster for {movie_name}, {movie_year}, {poster_url}")
+                all_posters.append((movie_name, movie_year, poster_url))
             else:
                 print(f"Poster not found for {movie_name}")
-    
+    sort_posters(all_posters)
+
+def sort_posters(all_posters):
+    print("Sorting posters...")
+    all_posters.sort(key=lambda x: (x[1] if x[1] is not None else 0, x[0]))
+    print(all_posters)
     return all_posters
 
 
