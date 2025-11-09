@@ -13,7 +13,7 @@
     </div>
 
     <div class ="posters">
-        {% for movie_name, poster_url in posters %}
+        {% for movie_name, movie_year, poster_url in posters %}
             <div class="poster">
                 <img src="{{ poster_url }}" alt="{{movie_name}}">
             </div>
