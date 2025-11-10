@@ -8,5 +8,6 @@ def get_posters():
     get_data.Load_images()
     return render_template("index.html", posters=get_data.all_posters)
 
+
 if __name__ == "__main__":
     app.run(debug=True)

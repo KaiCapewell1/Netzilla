@@ -1,149 +1,100 @@
-/* --- Custom Font --- */
 @font-face {
   font-family: 'Godzilla';
   src: url('../fonts/Godzilla.ttf') format('truetype');
 }
 
-/* --- Base Styles --- */
 body {
+  background-color: #1e1e1e;
   margin: 0;
-  font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #121212;
-  color: #E0E0E0;
-  line-height: 1.6;
-  scroll-behavior: smooth;
+  font-family: 'Times New Roman', Times, serif;
+  color: #ffffff;
+  line-height: 1.5;
 }
 
-/* --- Top Navigation Bar --- */
 .topnav {
-  background-color: #2C0000;
+  background-color: #2b0006;
+  height: 10vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 80px;
-  position: relative; /* for absolute logo positioning */
-  padding: 0 40px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
-  z-index: 1000;
-}
-
-.topnav .logo-container {
-  position: absolute;
-  left: 40px;
-  display: flex;
-  align-items: center;
-}
-
-.topnav .logo {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  border: 1px solid #444;
-  object-fit: cover;
-  margin-right: 15px;
-}
-
-.topnav .logo_text {
-  color: #dedede;
-  font-family: 'Godzilla', sans-serif;
-  font-size: 2.5rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-shadow: 0 0 5px rgba(255, 192, 203, 0.5);
-  white-space: nowrap;
-}
-
-/* --- Poster Grid Section --- */
-.posters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  justify-content: center;
-  padding: 40px 60px;
-}
-
-.poster {
-  width: 200px;
-  height: 300px;
-  background-color: #1E1E1E;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  cursor: pointer;
   position: relative;
-}
-
-.poster img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  border-radius: 10px;
-}
-
-.poster:hover {
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+  padding: 0 20px;
+  box-sizing: border-box;
   z-index: 10;
 }
 
-/* --- Section Titles --- */
-.era_title {
-  font-size: 2.5rem;
-  letter-spacing: 3px;
-  margin: 40px 0 15px 60px;
-  color: #FF6347;
-  text-transform: uppercase;
-  font-weight: 700;
+.logo {
+  position: absolute;
+  left: 20px;
+  height: 80%;
+  width: auto;
+  border-radius: 50%;
+  border: 2px solid #000;
 }
 
-.era-hr {
-  border: none;
-  height: 1px;
-  background: linear-gradient(to right, #FF6347, #121212);
-  margin: 0 60px 30px;
+.logo_text {
+  color: #ffffff;
+  font-family: 'Godzilla', sans-serif;
+  font-size: 5vh;
+  letter-spacing: 1px;
+  text-align: center;
+  white-space: nowrap;
 }
 
-/* --- Footer --- */
 .bottomLine {
-  height: 50px;
-  width: 100%;
   background-color: #1a1a1a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #999;
-  font-size: 0.9rem;
-  margin-top: 50px;
-  border-top: 1px solid #333;
+  height: 0.5vh;
+  width: 100%;
 }
 
-/* --- Responsive Adjustments --- */
-@media (max-width: 1200px) {
-  .poster { width: 180px; height: 270px; }
-  .topnav { padding: 0 30px; }
-  .topnav .logo-container { left: 30px; }
+.era_title {
+  font-size: 2rem;
+  letter-spacing: 2px;
+  margin: 30px 0 10px 50px;
+  color: #ffffff;
+}
+
+.underline {
+  border: 0;
+  height: 2px;
+  background: #666;
+  margin: 0 50px 20px;
+  display: block;
+}
+
+.posters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 0 50px 30px;
+}
+
+.poster img {
+  width: 180px;
+  height: 270px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.poster img:hover {
+  transform: scale(1.1) rotate(3deg);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+}
+
+@media (max-width: 1024px) {
+  .logo_text { font-size: 4.5vh; }
+  .posters { margin: 0 30px 30px; }
 }
 
 @media (max-width: 768px) {
-  .topnav { height: 70px; }
-  .topnav .logo_text { font-size: 2rem; }
-  .topnav .logo-container { left: 20px; }
-
-  .poster { width: 140px; height: 210px; }
-  .posters { gap: 20px; padding: 20px 20px; }
-
-  .era_title { font-size: 2rem; margin-left: 20px; }
-  .era-hr { margin: 0 20px 20px; }
+  .poster img { width: 140px; height: 210px; }
+  .era_title, .underline { margin-left: 20px; margin-right: 20px; }
+  .posters { justify-content: center; margin: 0 20px 30px; }
 }
 
 @media (max-width: 480px) {
-  .topnav { justify-content: space-between; padding: 0 15px; }
-  .topnav .logo-container { position: static; margin-right: 10px; }
-  .topnav .logo_text { font-size: 1.5rem; }
-
-  .poster { width: 100px; height: 150px; }
-  .era_title { font-size: 1.5rem; margin-left: 15px; }
-  .era-hr { margin: 0 15px 15px; }
+  .logo_text { font-size: 3.5vh; }
+  .poster img { width: 120px; height: 180px; }
 }

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,11 +13,17 @@
         <h1 class="logo_text">Net-zilla</h1>
     </div>
 
-    <div class ="posters">
-        {% for movie_name, movie_year, poster_url in posters %}
-            <div class="poster">
-                <img src="{{ poster_url }}" alt="{{movie_name}}">
-            </div>
+    <div class = "content">
+        {% for era, movies_list in posters.items() %}
+        <h2 class="era_title">{{ era }}</h2>
+        <line class="underline"></line>
+        <div class ="posters">
+            {% for movie_name, movie_year, poster_url in posters[era] %}
+                <div class="poster">
+                    <img src="{{ poster_url }}" alt="{{movie_name}}">
+                </div>
+            {% endfor %}
+        </div>
         {% endfor %}
     </div>
 

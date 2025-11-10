@@ -41,27 +41,28 @@ def fetch_poster(movie):
 
 def Load_images():
     global all_posters
-    all_posters = []
+    all_posters = {era: [] for era in era_movies}
+
     with ThreadPoolExecutor(max_workers=10) as executor: # using threading for faster API calls making the website loads faster 
         futures = []
         for era, movies_list in era_movies.items():
             for movie in movies_list:
-                futures.append(executor.submit(fetch_poster, movie))
+                futures.append((era, executor.submit(fetch_poster, movie)))
 
-        for fut in as_completed(futures):
+        for era, fut in futures:
             movie_name, movie_year, poster_url = fut.result()
             if poster_url:
                 print(f"Adding poster for {movie_name}, {movie_year}, {poster_url}")
-                all_posters.append((movie_name, movie_year, poster_url))
+                all_posters[era].append((movie_name, movie_year, poster_url))
             else:
                 print(f"Poster not found for {movie_name}")
     sort_posters(all_posters)
 
 def sort_posters(all_posters):
-    print("Sorting posters...")
-    all_posters.sort(key=lambda x: (x[1] if x[1] is not None else 0, x[0]))
-    print(all_posters)
+    for era, posters in all_posters.items():
+        posters.sort(key=lambda x: (x[1] if x[1] is not None else 0, x[0]))
     return all_posters
+
 
 
 if __name__ == "__main__":
