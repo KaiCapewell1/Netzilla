@@ -43,14 +43,18 @@ function posterClick(event, movie_year) {
     })
     .then(response => {
         if (!response.ok) throw new Error("Server error: " + response.status);
-        return response.json();
+        return response.text(); // Flask returns HTML
     })
-    .then(data => {
-        console.log("Success:", data);
+    .then(html => {
+        // Replace current page with returned HTML
+        document.open();
+        document.write(html);
+        document.close();
     })
     .catch(error => {
         console.error("Error:", error);
     });
 }
 </script>
+
 </html>

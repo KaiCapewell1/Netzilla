@@ -8,9 +8,6 @@ def get_posters():
     return render_template("index.html", posters=get_data.all_posters)
 
 
-
-# netzilla.py (Modified)
-
 @app.route("/poster_click", methods=["POST"])
 def poster_click():
     data = request.get_json()
@@ -37,10 +34,9 @@ def poster_click():
     
     result = get_data.fetch_movie_data(movie_title, movie_year, entertainment_type)
 
-    if result:
-        return jsonify(result), 200
-    else:
-        return jsonify({"error": f"Failed to fetch detailed data for {movie_title}"}), 500
+    return render_template("movie.html", movie=result)
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

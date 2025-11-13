@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Netzilla</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="topnav">
+        <img class="logo" src="https://preview.redd.it/8g5hszxn3bn61.jpg?width=1080&crop=smart&auto=webp&s=83c03e68724e08e0921a0868dfb47ecbfdac7407" alt="Logo" />
+        <h1 class="logo_text">Net-zilla</h1>
+    </div>
+
+    <div class = "content">
+        <h2 class="era_title">{{ movie.title }} ({{ movie.year }})</h2>
+        <line class="underline"></line>
+        <div class="movie_details">
+        <img class="movie_poster" src="{{ movie.poster_path }}" alt="{{ movie.title }} Poster" />
+        <div class="movie_info">
+            <p><strong>Genre:</strong> {{ movie.genres | join(', ') }}</p>
+            <p><strong>Director:</strong> {{ movie.director }}</p>
+            <p><strong>Screenplay:</strong> {{ movie.screenplay }}</p>
+            <p><strong>Plot:</strong> {{ movie.overview }}</p>
+            <p><strong>⭐</strong> {{ movie.ratings }}</p>
+            <iframe 
+                class="movie_trailer"
+                width="560" 
+                height="315" 
+                src="{{ movie.trailer | replace('watch?v=', 'embed/') }}" 
+                title="{{ movie.title }} Trailer"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+
+        </div>
+    </div>
