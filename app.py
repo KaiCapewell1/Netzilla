@@ -26,11 +26,7 @@ def poster_click():
     entertainment_type = None
     for era, posters in get_data.all_posters.items():
         for poster in posters:
-            try:
-                req_year = int(movie_year) if movie_year else None
-            except ValueError:
-                req_year = None
-
+            req_year = int(movie_year) if movie_year else None
             if poster[0] == movie_title and poster[1] == req_year:
                 entertainment_type = poster[3]
                 break
@@ -38,14 +34,17 @@ def poster_click():
             break
 
     if not entertainment_type:
-        return jsonify({"error": f"Movie not found with title: {movie_title} and year: {movie_year}"}), 404
+        return f"NOT FOUND: {movie_title} ({movie_year})", 404
 
     try:
         result = get_data.fetch_movie_data(movie_title, movie_year, entertainment_type)
     except Exception as e:
-        return f"Error fetching movie data: {e}", 500
+        import traceback
+        traceback.print_exc()  # PRINT FULL ERROR
+        return f"ERROR IN fetch_movie_data: {e}", 500
 
     return render_template("movie.html", movie=result)
+
 
 
 # -----------------------
