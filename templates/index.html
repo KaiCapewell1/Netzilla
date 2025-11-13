@@ -20,7 +20,8 @@
         <div class ="posters">
             {% for movie_name, movie_year, poster_url in posters[era] %}
                 <div class="poster">
-                    <img src="{{ poster_url }}" alt="{{movie_name}}">
+                    <img src="{{ poster_url }}" alt="{{ movie_name }}" 
+                    onclick="posterClick(event, '{{ movie_year }}')">
                 </div>
             {% endfor %}
         </div>
@@ -28,3 +29,28 @@
     </div>
 
     <div class="bottomLine"></div>
+</body>
+
+<script>
+function posterClick(event, movie_year) {
+    fetch("/poster_click", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            title: event.target.alt,
+            year: movie_year
+        })
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("Server error: " + response.status);
+        return response.json();
+    })
+    .then(data => {
+        console.log("Success:", data);
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+}
+</script>
+</html>

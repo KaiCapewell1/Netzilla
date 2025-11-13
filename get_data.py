@@ -64,6 +64,10 @@ def sort_posters(all_posters):
     return all_posters
 
 
+def fetch_movie_data(movie_title, movie_year):
+    print(f"succsess {movie_title}, {movie_year}")
+
+
 
 if __name__ == "__main__":
     Load_images()
