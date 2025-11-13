@@ -35,10 +35,10 @@ def fetch_poster(movie):
         if poster_path:
             return (movie_name, movie_year, f"{IMAGE_URL}{poster_path}", "tv")
         
-        return(movie_name, movie_year, None, None)
+        return (movie_name, movie_year, None, "tv")
     
 
-    return (movie_name, movie_year, None)
+    return (movie_name, movie_year, None, None)
 
 
 def Load_images():
