@@ -18,7 +18,7 @@
         <h2 class="era_title">{{ era }}</h2>
         <line class="underline"></line>
         <div class ="posters">
-            {% for movie_name, movie_year, poster_url in posters[era] %}
+            {% for movie_name, movie_year, poster_url, _ in posters[era] %}
                 <div class="poster">
                     <img src="{{ poster_url }}" alt="{{ movie_name }}" 
                     onclick="posterClick(event, '{{ movie_year }}')">

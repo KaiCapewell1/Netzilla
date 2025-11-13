@@ -25,15 +25,19 @@ def fetch_poster(movie):
     movie_year = movie[1] if isinstance(movie, tuple) else None
     try:
         results = search_api("movie", movie_name, movie_year)
-        if not results:
-            results = search_api("tv", movie_name, movie_year)
-        if not results:
-            print(f"No results found for {movie_name} ({movie_year})")
-            return (movie_name, None)
+        if results:
+            poster_path = results[0].get("poster_path")
+            if poster_path:
+                return (movie_name, movie_year, f"{IMAGE_URL}{poster_path}", "movie")
+            
+        results = search_api("tv", movie_name, movie_year)
+        if results:
+            poster_path = results[0].get("poster_path")
+            if poster_path:
+                return (movie_name, movie_year, f"{IMAGE_URL}{poster_path}", "tv")
         
-        poster_path = results[0].get("poster_path")
-        if poster_path:
-          return (movie_name, movie_year, f"{IMAGE_URL}{poster_path}")
+        return(movie_name, movie_year, None, None)
+    
     except Exception as e:
         print(f"Error fetching poster for {movie_name} ({movie_year}): {e}")
     return (movie_name, movie_year, None)
@@ -50,12 +54,8 @@ def Load_images():
                 futures.append((era, executor.submit(fetch_poster, movie)))
 
         for era, fut in futures:
-            movie_name, movie_year, poster_url = fut.result()
-            if poster_url:
-                print(f"Adding poster for {movie_name}, {movie_year}, {poster_url}")
-                all_posters[era].append((movie_name, movie_year, poster_url))
-            else:
-                print(f"Poster not found for {movie_name}")
+            movie_name, movie_year, poster_url, entertainment_type = fut.result()
+            all_posters[era].append((movie_name, movie_year, poster_url, entertainment_type))
     sort_posters(all_posters)
 
 def sort_posters(all_posters):
@@ -64,10 +64,76 @@ def sort_posters(all_posters):
     return all_posters
 
 
-def fetch_movie_data(movie_title, movie_year):
-    print(f"succsess {movie_title}, {movie_year}")
+def fetch_movie_data(movie_title, movie_year, entetainment_type):
+    params = {"query": movie_title, "language": "en-US", "api_key": API_KEY, "year": movie_year}
+    response = requests.get(f"{BASE_URL}/search/{entetainment_type}", params=params)
+    results = response.json().get("results", [])
 
+    if not results:
+        return None
+    
+    result = results[0]
+
+    details_response = requests.get(f"{BASE_URL}/{entetainment_type}/{result['id']}", params={"api_key": API_KEY, "language": "en-US"})
+    details = details_response.json()
+
+
+    movie_data = {
+        "title": result.get("title") or result.get("name"),
+        "year": movie_year,
+        "overview": details.get("overview", ""),
+        "ratings": details.get("vote_average", 0),
+        "genres": [g["name"] for g in details.get("genres", [])],
+        "poster_path": f"{IMAGE_URL}{details.get('poster_path', '')}",
+        "director": None,
+        "screenplay": None,
+        "story": None,
+        "trailer": None
+    }
+
+    
+
+    if entetainment_type == "movie":
+        credits_response = requests.get(f"{BASE_URL}/movie/{details['id']}/credits", params={"api_key": API_KEY})
+        credits = credits_response.json()
+        for crew_member in credits.get("crew", []):
+            if crew_member["job"] == "Director":
+                movie_data["director"] = crew_member["name"]
+            elif crew_member["job"] == "Screenplay":
+                movie_data["screenplay"] = crew_member["name"]
+            elif crew_member["job"] == "Story":
+                movie_data["story"] = crew_member["name"]
+
+    movie_data["trailer"] = get_yt_trailer_link(movie_title, movie_year)
+
+    if entetainment_type == "tv":
+        creators = result.get("created_by", [])
+        movie_data["creator"] = [c.get("name") for c in creators] if creators else None
+
+    print(movie_data)
+    return movie_data
+
+def get_yt_trailer_link(movie_title, movie_year):
+    query = f"{movie_title} {movie_year} TOHO channel japanese trailer"
+    youtube_search_url = "https://www.googleapis.com/youtube/v3/search"
+    params = {
+        "part": "snippet",
+        "q": query,
+        "key": os.getenv("YOUTUBE_API_KEY"),
+        "maxResults": 1,
+        "type": "video"
+    }
+    response = requests.get(youtube_search_url, params=params)
+    response.raise_for_status()
+    results = response.json().get("items", [])
+    if results:
+        video_id = results[0]["id"]["videoId"]
+        trailer = f"https://www.youtube.com/watch?v={video_id}"
+        return trailer
+    return None
 
 
 if __name__ == "__main__":
     Load_images()
+
+    

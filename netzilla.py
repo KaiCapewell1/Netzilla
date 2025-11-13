@@ -9,17 +9,38 @@ def get_posters():
 
 
 
+# netzilla.py (Modified)
+
 @app.route("/poster_click", methods=["POST"])
 def poster_click():
     data = request.get_json()
     movie_title = data.get("title")
     movie_year = data.get("year")
 
-    # Call your Python function
-    get_data.fetch_movie_data(movie_title, movie_year)
+    entertainment_type = None
+    for era, posters in get_data.all_posters.items():
+        for poster in posters:
+            try:
+                
+                req_year = int(movie_year) if movie_year else None
+            except ValueError:
+                req_year = None # 
 
-    # Return JSON to the frontend
-    return jsonify({"status": "ok", "title": movie_title, "year": movie_year})
+            if poster[0] == movie_title and poster[1] == req_year:
+                entertainment_type = poster[3]
+                break
+        if entertainment_type:
+            break
+
+    if not entertainment_type:
+        return jsonify({"error": f"Movie not found in list with title: {movie_title} and year: {movie_year}"}), 404
+    
+    result = get_data.fetch_movie_data(movie_title, movie_year, entertainment_type)
+
+    if result:
+        return jsonify(result), 200
+    else:
+        return jsonify({"error": f"Failed to fetch detailed data for {movie_title}"}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)
