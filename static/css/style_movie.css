@@ -1,0 +1,154 @@
+/* General Page Styles */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Top Navigation Bar */
+.topnav {
+    display: flex;
+    align-items: center;
+    background-color: #1e1e1e;
+    padding: 10px 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.logo_text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Main Content */
+.content {
+    padding: 20px 50px;
+}
+
+/* Movie Title & Year */
+.content .movie_title {
+    font-size: 3rem;
+    color: #ffffff;
+    margin: 20px 0 5px 0;
+    font-weight: bold;
+}
+
+.content .movie_year {
+    font-size: 1.2rem;
+    color: #cccccc;
+    margin: 0 0 20px 0;
+}
+
+/* Movie Details Container */
+.movie_details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* Poster */
+.movie_poster {
+    width: 250px;
+    height: 375px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+}
+
+/* Right Column: Trailer + Info */
+.movie_right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Trailer */
+.movie_trailer {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+}
+
+/* Movie Info Section */
+.movie_info {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+}
+
+.movie_info p {
+    margin-bottom: 12px;
+}
+
+/* Genre, Director, Screenplay, Plot, Ratings styling */
+.movie_info p strong {
+    color: #f39c12;
+}
+
+/* Responsive Layouts */
+@media (max-width: 1024px) {
+    .movie_details {
+        gap: 20px;
+    }
+    .movie_poster {
+        width: 200px;
+        height: 300px;
+    }
+    .movie_trailer {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .movie_details {
+        flex-direction: column;
+        align-items: center;
+    }
+    .movie_right {
+        width: 100%;
+    }
+    .movie_info {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .movie_poster {
+        width: 140px;
+        height: 210px;
+    }
+    .movie_title {
+        font-size: 2rem;
+    }
+    .movie_year {
+        font-size: 1rem;
+    }
+    .topnav {
+        padding: 10px 20px;
+    }
+    .logo_text {
+        font-size: 1.5rem;
+    }
+}

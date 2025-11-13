@@ -12,17 +12,14 @@
         <h1 class="logo_text">Net-zilla</h1>
     </div>
 
-    <div class = "content">
-        <h2 class="era_title">{{ movie.title }} ({{ movie.year }})</h2>
-        <line class="underline"></line>
-        <div class="movie_details">
+    <div class="content">
+    <h2 class="movie_title">{{ movie.title }}</h2>
+    <p class="movie_year">{{ movie.year }}</p>
+
+    <div class="movie_details">
         <img class="movie_poster" src="{{ movie.poster_path }}" alt="{{ movie.title }} Poster" />
-        <div class="movie_info">
-            <p><strong>Genre:</strong> {{ movie.genres | join(', ') }}</p>
-            <p><strong>Director:</strong> {{ movie.director }}</p>
-            <p><strong>Screenplay:</strong> {{ movie.screenplay }}</p>
-            <p><strong>Plot:</strong> {{ movie.overview }}</p>
-            <p><strong>⭐</strong> {{ movie.ratings }}</p>
+
+        <div class="movie_right">
             <iframe 
                 class="movie_trailer"
                 width="560" 
@@ -34,5 +31,13 @@
                 allowfullscreen>
             </iframe>
 
+            <div class="movie_info">
+                <p><strong>Genre:</strong> {{ movie.genres | join(', ') }}</p>
+                <p><strong>Director:</strong> {{ movie.director }}</p>
+                <p><strong>Screenplay:</strong> {{ movie.screenplay }}</p>
+                <p><strong>Plot:</strong> {{ movie.overview }}</p>
+                <p><strong>⭐</strong> {{ movie.ratings }}</p>
+            </div>
         </div>
     </div>
+</div>

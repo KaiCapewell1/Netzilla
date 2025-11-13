@@ -11,6 +11,7 @@ body {
   line-height: 1.5;
 }
 
+/* Top Navigation */
 .topnav {
   background-color: #2b0006;
   height: 10vh;
@@ -41,12 +42,14 @@ body {
   white-space: nowrap;
 }
 
+/* Bottom line under nav */
 .bottomLine {
   background-color: #1a1a1a;
   height: 0.5vh;
   width: 100%;
 }
 
+/* Section / Era Title */
 .era_title {
   font-size: 2rem;
   letter-spacing: 2px;
@@ -62,11 +65,13 @@ body {
   display: block;
 }
 
+/* Posters Grid (Index Page) */
 .posters {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   margin: 0 50px 30px;
+  justify-content: flex-start; /* keep posters left-aligned */
 }
 
 .poster img {
@@ -83,18 +88,105 @@ body {
   box-shadow: 0 6px 12px rgba(0,0,0,0.5);
 }
 
+/* Movie Detail Page */
+.content {
+  padding: 40px 50px;
+}
+
+.movie_title {
+  font-family: 'Godzilla', sans-serif;
+  font-size: 6vh;
+  text-align: center;
+  margin: 20px 0 10px 0;
+}
+
+.movie_year {
+  font-family: 'Godzilla', sans-serif;
+  font-size: 3vh;
+  color: #cccccc;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Movie Details - side by side layout */
+.movie_details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: flex-start;
+  margin: 0 50px;
+}
+
+/* Poster */
+.movie_poster {
+  width: 350px;
+  height: 525px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.7);
+}
+
+/* Right side: Trailer + Info */
+.movie_right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Trailer */
+.movie_trailer {
+  width: 100%;
+  max-width: 700px;
+  height: 450px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.7);
+}
+
+/* Movie Info */
+.movie_info {
+  background-color: #2b0006;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.6);
+  color: #ffffff;
+}
+
+.movie_info p {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.movie_info p strong {
+  color: #f39c12;
+}
+
+/* Responsive Layouts */
 @media (max-width: 1024px) {
   .logo_text { font-size: 4.5vh; }
   .posters { margin: 0 30px 30px; }
+  .movie_poster { width: 300px; height: 450px; }
+  .movie_trailer { max-width: 600px; height: 400px; }
+  .movie_info { padding: 25px; }
 }
 
 @media (max-width: 768px) {
   .poster img { width: 140px; height: 210px; }
   .era_title, .underline { margin-left: 20px; margin-right: 20px; }
-  .posters { justify-content: center; margin: 0 20px 30px; }
+  .posters { justify-content: flex-start; margin: 0 20px 30px; }
+  .movie_details { flex-direction: column; align-items: center; }
+  .movie_right { width: 100%; }
+  .movie_info { width: 100%; padding: 20px; }
+  .movie_trailer { max-width: 100%; height: 350px; }
 }
 
 @media (max-width: 480px) {
   .logo_text { font-size: 3.5vh; }
   .poster img { width: 120px; height: 180px; }
+  .movie_title { font-size: 5vh; }
+  .movie_year { font-size: 2.5vh; }
+  .movie_poster { width: 180px; height: 270px; }
+  .movie_trailer { width: 100%; height: 250px; }
+  .movie_info { width: 100%; padding: 15px; }
+  .movie_info p { font-size: 0.9rem; }
 }
