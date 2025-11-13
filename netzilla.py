@@ -21,7 +21,7 @@ def poster_click():
                 
                 req_year = int(movie_year) if movie_year else None
             except ValueError:
-                req_year = None # 
+                req_year = None 
 
             if poster[0] == movie_title and poster[1] == req_year:
                 entertainment_type = poster[3]

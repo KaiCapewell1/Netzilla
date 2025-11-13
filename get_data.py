@@ -23,23 +23,21 @@ def search_api(type, movie_name, movie_year):
 def fetch_poster(movie):
     movie_name = movie[0] if isinstance(movie, tuple) else movie
     movie_year = movie[1] if isinstance(movie, tuple) else None
-    try:
-        results = search_api("movie", movie_name, movie_year)
-        if results:
-            poster_path = results[0].get("poster_path")
-            if poster_path:
-                return (movie_name, movie_year, f"{IMAGE_URL}{poster_path}", "movie")
+    results = search_api("movie", movie_name, movie_year)
+    if results:
+        poster_path = results[0].get("poster_path")
+        if poster_path:
+            return (movie_name, movie_year, f"{IMAGE_URL}{poster_path}", "movie")
             
-        results = search_api("tv", movie_name, movie_year)
-        if results:
-            poster_path = results[0].get("poster_path")
-            if poster_path:
-                return (movie_name, movie_year, f"{IMAGE_URL}{poster_path}", "tv")
+    results = search_api("tv", movie_name, movie_year)
+    if results:
+        poster_path = results[0].get("poster_path")
+        if poster_path:
+            return (movie_name, movie_year, f"{IMAGE_URL}{poster_path}", "tv")
         
         return(movie_name, movie_year, None, None)
     
-    except Exception as e:
-        print(f"Error fetching poster for {movie_name} ({movie_year}): {e}")
+
     return (movie_name, movie_year, None)
 
 
@@ -82,7 +80,7 @@ def fetch_movie_data(movie_title, movie_year, entetainment_type):
         "title": result.get("title") or result.get("name"),
         "year": movie_year,
         "overview": details.get("overview", ""),
-        "ratings": details.get("vote_average", 0),
+        "ratings": round(details.get("vote_average", 0),1),
         "genres": [g["name"] for g in details.get("genres", [])],
         "poster_path": f"{IMAGE_URL}{details.get('poster_path', '')}",
         "director": None,
@@ -110,7 +108,6 @@ def fetch_movie_data(movie_title, movie_year, entetainment_type):
         creators = result.get("created_by", [])
         movie_data["creator"] = [c.get("name") for c in creators] if creators else None
 
-    print(movie_data)
     return movie_data
 
 def get_yt_trailer_link(movie_title, movie_year):

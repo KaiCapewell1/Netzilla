@@ -1,8 +1,3 @@
-/* ============================================ 
-  NETZILLA - IMDB-Inspired Professional Layout
-  Preserving Godzilla Aesthetic (Version 6: Final Polish)
-  ============================================ */
-
 @font-face {
   font-family: 'Godzilla';
   src: url('../fonts/Godzilla.ttf') format('truetype');
@@ -23,7 +18,7 @@ body {
   line-height: 1.6;
 }
 
-/* ===== TOP NAVIGATION - Clean & Fixed ===== */
+/* ===== TOP NAVIGATION - Clean & Fixed (RED BAR FIX APPLIED) ===== */
 .topnav {
   background-color: #2b0006;
   height: 70px;
@@ -38,6 +33,7 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
+/* ORIGINAL .logo STYLES (REQUIRED FOR INDEX.HTML TO WORK) */
 .logo {
   position: absolute;
   left: 40px;
@@ -45,6 +41,37 @@ body {
   width: 50px;
   border-radius: 50%;
   border: 2px solid #000;
+  object-fit: cover;
+}
+
+/* MOVIE PAGE FIX: Styles for the <a> wrapper (Turns logo into back button) */
+.topnav > a {
+  /* Inherit positioning and size */
+  position: absolute; 
+  left: 40px; 
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  overflow: hidden; 
+  z-index: 1001; 
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.topnav > a:hover {
+  opacity: 0.8;
+}
+
+/* MOVIE PAGE FIX: Reset styles on the <img> inside the <a> (to prevent conflict) */
+.topnav > a > .logo {
+  /* Overrides position:absolute from the general .logo rule */
+  position: static !important; 
+  /* Make the image fill the <a> container, which now holds the styling */
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  border: none;
   object-fit: cover;
 }
 
@@ -64,7 +91,7 @@ body {
   padding: 40px 20px;
 }
 
-/* ===== HOMEPAGE: ERA SECTIONS (No changes here) ===== */
+/* ===== HOMEPAGE: ERA SECTIONS (No changes) ===== */
 .era_title {
   font-size: 1.75rem;
   font-weight: 600;
@@ -82,7 +109,7 @@ body {
   width: 100%;
 }
 
-/* ===== POSTER GRID (No changes here) ===== */
+/* ===== POSTER GRID (No changes) ===== */
 .posters {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -114,7 +141,7 @@ body {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
 }
 
-/* ===== MOVIE DETAIL PAGE - IMDB Layout ===== */
+/* ===== MOVIE DETAIL PAGE - IMDB Layout (Polished) ===== */
 
 .movie_title {
   font-family: 'Godzilla', sans-serif;
@@ -124,7 +151,6 @@ body {
   margin: 30px 0 8px 0;
   letter-spacing: 1px;
   line-height: 1.2;
-  /* ✨ ADJUSTMENT: Center Title */
   text-align: center; 
 }
 
@@ -133,7 +159,6 @@ body {
   color: #aaa;
   margin-bottom: 32px;
   font-weight: 400;
-  /* ✨ ADJUSTMENT: Center Year */
   text-align: center; 
 }
 
@@ -145,12 +170,11 @@ body {
   align-items: start;
 }
 
-/* ===== LEFT COLUMN: POSTER ===== */
+/* ===== LEFT COLUMN: POSTER (Same Length) ===== */
 .movie_poster {
   width: 100%;
-  /* ✨ ADJUSTMENT: Set exact height for synchronization */
   height: 450px; 
-  object-fit: cover; /* Ensures image isn't stretched */
+  object-fit: cover; 
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   transition: transform 0.2s ease;
@@ -167,10 +191,9 @@ body {
   gap: 24px;
 }
 
-/* Trailer - Clean Video Container */
+/* Trailer - Clean Video Container (Same Length) */
 .movie_trailer {
   width: 100%;
-  /* ✨ ADJUSTMENT: Set exact height to match poster */
   height: 450px; 
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
@@ -242,7 +265,7 @@ body {
   font-weight: 700;
 }
 
-/* ===== BOTTOM LINE (No changes here) ===== */
+/* ===== BOTTOM LINE (No changes) ===== */
 .bottomLine {
   background: linear-gradient(90deg, transparent, #444, transparent);
   height: 1px;
@@ -259,7 +282,6 @@ body {
     grid-template-columns: 260px 1fr;
     gap: 24px;
   }
-  /* ✨ ADJUSTMENT: Synchronized height */
   .movie_poster, .movie_trailer {
     height: 400px; 
   }
@@ -277,11 +299,9 @@ body {
   .movie_poster {
     max-width: 300px;
     margin: 0 auto;
-    /* ✨ ADJUSTMENT: Synchronized height */
     height: 380px; 
   }
   .movie_trailer {
-    /* ✨ ADJUSTMENT: Synchronized height */
     height: 380px; 
   }
   .movie_info {
@@ -296,11 +316,9 @@ body {
 
 @media (max-width: 480px) {
   .movie_poster {
-    /* ✨ ADJUSTMENT: Synchronized height */
     height: 280px;
   }
   .movie_trailer {
-    /* ✨ ADJUSTMENT: Synchronized height */
     height: 280px;
   }
   .movie_info {
