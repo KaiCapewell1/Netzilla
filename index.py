@@ -3,7 +3,6 @@ import logging
 import traceback
 from flask import Flask, render_template, request, jsonify
 import get_data
-
 logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 
