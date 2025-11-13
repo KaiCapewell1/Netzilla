@@ -1,4 +1,3 @@
-import os
 import logging
 import traceback
 from flask import Flask, render_template, request, jsonify
@@ -6,12 +5,14 @@ import get_data
 
 logging.basicConfig(level=logging.DEBUG)
 
+# -------------------------------
+# Create Flask app
+# -------------------------------
 app = Flask(__name__)
 
-
-# ---------------------------------------------------------
-# GLOBAL ERROR HANDLER — prints *every* uncaught exception
-# ---------------------------------------------------------
+# -------------------------------
+# Global error handler
+# -------------------------------
 @app.errorhandler(Exception)
 def handle_exception(e):
     print("=========== SERVER ERROR ===========")
@@ -19,10 +20,9 @@ def handle_exception(e):
     print("=========== END ERROR =============")
     return jsonify({"error": str(e)}), 500
 
-
-# ---------------------------------------------------------
-# ROUTES
-# ---------------------------------------------------------
+# -------------------------------
+# Routes
+# -------------------------------
 @app.route("/")
 def get_posters():
     try:
@@ -43,7 +43,6 @@ def poster_click():
 
         entertainment_type = None
 
-        # Find entertainment type from loaded posters
         for era, posters in get_data.all_posters.items():
             for poster in posters:
                 req_year = int(movie_year) if movie_year else None
@@ -56,7 +55,6 @@ def poster_click():
         if entertainment_type is None:
             return jsonify({"error": f"NOT FOUND: {movie_title} ({movie_year})"}), 404
 
-        # Fetch movie data
         result = get_data.fetch_movie_data(movie_title, movie_year, entertainment_type)
         return render_template("movie.html", movie=result)
 
@@ -64,9 +62,8 @@ def poster_click():
         traceback.print_exc()
         return f"ERROR IN poster_click: {e}", 500
 
-
-# ---------------------------------------------------------
-# MAIN ENTRY
-# ---------------------------------------------------------
+# -------------------------------
+# For local testing
+# -------------------------------
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
