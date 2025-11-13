@@ -1,10 +1,10 @@
+import os
 import logging
 import traceback
 from flask import Flask, render_template, request, jsonify
 import get_data
 
 logging.basicConfig(level=logging.DEBUG)
-
 app = Flask(__name__)
 
 @app.errorhandler(Exception)
@@ -27,8 +27,8 @@ def poster_click():
         data = request.get_json()
         movie_title = data.get("title")
         movie_year = data.get("year")
-
         entertainment_type = None
+
         for era, posters in get_data.all_posters.items():
             for poster in posters:
                 req_year = int(movie_year) if movie_year else None
@@ -48,6 +48,5 @@ def poster_click():
         traceback.print_exc()
         return f"ERROR IN poster_click: {e}", 500
 
-# For local testing only
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
