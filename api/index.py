@@ -5,24 +5,13 @@ import get_data
 
 logging.basicConfig(level=logging.DEBUG)
 
-# -------------------------------
-# Create Flask app
-# -------------------------------
 app = Flask(__name__)
 
-# -------------------------------
-# Global error handler
-# -------------------------------
 @app.errorhandler(Exception)
 def handle_exception(e):
-    print("=========== SERVER ERROR ===========")
     traceback.print_exc()
-    print("=========== END ERROR =============")
     return jsonify({"error": str(e)}), 500
 
-# -------------------------------
-# Routes
-# -------------------------------
 @app.route("/")
 def get_posters():
     try:
@@ -30,9 +19,7 @@ def get_posters():
     except Exception as e:
         traceback.print_exc()
         return f"Error loading images: {e}", 500
-
     return render_template("index.html", posters=get_data.all_posters)
-
 
 @app.route("/poster_click", methods=["POST"])
 def poster_click():
@@ -42,7 +29,6 @@ def poster_click():
         movie_year = data.get("year")
 
         entertainment_type = None
-
         for era, posters in get_data.all_posters.items():
             for poster in posters:
                 req_year = int(movie_year) if movie_year else None
@@ -62,8 +48,6 @@ def poster_click():
         traceback.print_exc()
         return f"ERROR IN poster_click: {e}", 500
 
-# -------------------------------
-# For local testing
-# -------------------------------
+# For local testing only
 if __name__ == "__main__":
     app.run(debug=True)
