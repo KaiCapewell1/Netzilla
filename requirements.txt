@@ -1,5 +1,4 @@
-flask
+Flask
 requests
 python-dotenv
-vercel-wsgi
-pytz
+gunicorn
