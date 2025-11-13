@@ -52,9 +52,4 @@ def poster_click():
 # Main entry
 # -----------------------
 if __name__ == "__main__":
-    ENV = os.environ.get("ENV", "development")
-    port = int(os.environ.get("PORT", 5000))
-
-    # Only run Flask's dev server in development
-    if ENV != "production":
-        app.run(host="0.0.0.0", port=port, debug=True)
+    app.run()
