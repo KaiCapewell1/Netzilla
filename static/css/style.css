@@ -249,6 +249,7 @@ body {
   margin-top: 1rem;
 }
 
+/* Default strong styling */
 .movie_info strong {
   color: #ffffff;
   font-weight: 600;
@@ -258,7 +259,14 @@ body {
   letter-spacing: 0.3px;
 }
 
-/* Star Rating Styling (The actual rating) */
+/* NEW: Genre, Director, Screenplay Title Styling */
+.movie_info p:nth-child(-n+3) strong {
+    color: #ffd700; /* Gold Yellow */
+    font-size: 1.3rem; /* Larger Size */
+    font-weight: 700;
+}
+
+/* Star Rating Styling (The actual rating) - Keeping the same gold color */
 .movie_info p:nth-child(5) strong { 
   color: #ffd700;
   font-size: 1.3rem;
