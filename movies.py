@@ -54,6 +54,7 @@ era_movies = {
         ("Godzilla vs. Kong", 2021),
         ("Monarch: Legacy of Monsters", 2023),  # TV series
         ("Godzilla x Kong: The New Empire", 2024),
+        ("Godzilla x Kong: Supernova", 2027) 
     ],
 
     "misc": [
