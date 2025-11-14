@@ -49,19 +49,20 @@
 
             <!-- Genre / Director / Screenplay -->
             <div class="movie_row_details">
-                <p>
-                    <span class="label">GENRE:</span>
-                    <span class="value">{{ movie.genres | join(', ') }}</span>
-                </p>
-                <p>
-                    <span class="label">DIRECTOR:</span>
-                    <span class="value">{{ movie.director }}</span>
-                </p>
-                <p>
-                    <span class="label">SCREENPLAY:</span>
-                    <span class="value">{{ movie.screenplay }}</span>
-                </p>
-            </div>
+    <p class="left">
+        <span class="label">GENRE:</span>
+        <span class="value">{{ movie.genres | join(', ') }}</span>
+    </p>
+    <p class="center">
+        <span class="label">DIRECTOR:</span>
+        <span class="value">{{ movie.director }}</span>
+    </p>
+    <p class="right">
+        <span class="label">SCREENPLAY:</span>
+        <span class="value">{{ movie.screenplay }}</span>
+    </p>
+</div>
+
 
             <!-- Plot -->
             <p><strong>Plot:</strong> {{ movie.overview }}</p>
