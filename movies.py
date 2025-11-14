@@ -60,5 +60,6 @@ era_movies = {
         ("The Women of Godzilla", 2008),        # Documentary
         ("Godzilla", 1998),
         ("Godzilla: The Series", 1998),# Animated TV Series
+        ("Godzilla Minus Zero")
     ],
 }
