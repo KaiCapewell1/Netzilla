@@ -22,11 +22,12 @@ body {
   padding: 32px 20px;
 }
 
+/* FIX: Centered Navigation Bar */
 .topnav {
   background-color: #2b0006;
   height: clamp(55px, 8vw, 70px);
   display: flex;
-  justify-content: center;
+  justify-content: center; /* Centers the logo_text horizontally */
   align-items: center;
   position: sticky;
   top: 0;
@@ -36,8 +37,8 @@ body {
 }
 
 .topnav > a {
-  position: absolute;
-  left: 24px;
+  position: absolute; /* Pulls logo out of the flow */
+  left: 24px; /* Pins logo to the far left */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,8 +60,11 @@ body {
   font-size: clamp(1.4rem, 4vw, 2.2rem);
   color: #fff;
   white-space: nowrap;
-  padding-left: clamp(48px, 12vw, 70px); 
+  /* Removed padding-left to allow the center positioning to work */
+  padding-left: 0; 
+  text-align: center;
 }
+/* END FIX: Centered Navigation Bar */
 
 .era_title {
   font-size: clamp(1.3rem, 3vw, 1.8rem);
@@ -132,12 +136,10 @@ body {
 /* MOVIE DETAILS FINAL 3-AREA GRID LAYOUT */
 .movie_details {
   display: grid;
-  /* Define two columns and two rows */
   grid-template-columns: 340px 1fr; 
   grid-template-rows: auto auto; 
   gap: 32px;
   
-  /* Name the areas: Poster (top-left), Trailer (top-right), Info (full-bottom) */
   grid-template-areas: 
     "poster trailer"
     "info info";
@@ -163,7 +165,7 @@ body {
 .movie_trailer {
   grid-area: trailer;
   width: 100%;
-  aspect-ratio: 16 / 9; /* Ensures video is widescreen and not squashed */
+  aspect-ratio: 16 / 9; 
   height: auto; 
   border-radius: 10px;
   background: #000;
@@ -177,26 +179,25 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-top: 8px; /* Add slight separation from the content above */
+    margin-top: 8px;
 }
 
-/* NEW STYLE: Align Genre, Director, Screenplay on one line */
+/* Align Genre, Director, Screenplay on one line */
 .movie_row_details {
     display: flex;
-    justify-content: space-between; /* Pushes items to the ends and centers the middle one */
+    justify-content: space-between;
     align-items: center;
     padding-bottom: 12px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 12px;
 }
 
-/* Ensure the items themselves don't break onto new lines and are sized */
 .movie_row_details p {
     white-space: nowrap;
     font-size: clamp(0.95rem, 1.8vw, 1.1rem);
 }
 
-/* Center the Director text and allow it to take available space */
+/* Center the Director text */
 .movie_row_details p:nth-child(2) {
     text-align: center;
     flex-grow: 1; 
@@ -206,13 +207,14 @@ body {
   font-size: clamp(0.95rem, 1.8vw, 1.1rem);
 }
 
+/* Gold styling for final rating */
 .movie_info_full_width p:last-child strong {
   color: #ffd700;
   font-size: 1.3rem;
 }
-.movie_info_full_width p:nth-child(1) strong,  /* Genre */
-.movie_info_full_width p:nth-child(2) strong,  /* Director */
-.movie_info_full_width p:nth-child(3) strong { /* Screenplay */
+
+/* Gold styling for detail row content */
+.movie_row_details p strong {
     color: #ffd700;
     font-size: 1.3rem;
 }
@@ -234,7 +236,6 @@ body {
     margin: 0 auto;
   }
   
-  /* Mobile adjustment for the detail row: stack them */
   .movie_row_details {
     flex-direction: column; 
     align-items: flex-start;
