@@ -45,7 +45,7 @@ era_movies = {
         ("Godzilla: The Planet Eater", 2018),
         ("Godzilla Singular Point", 2021),      # TV anime
         ("Godzilla Minus One", 2023),
-        ("Godzilla Minus Zero", 2026)         # Upcoming film 
+       
     ],
 
     "The MonsterVerse": [
