@@ -3,7 +3,6 @@
   src: url('../fonts/Godzilla.ttf') format('truetype');
 }
 
-/* ===== BASE STYLES ===== */
 * {
   margin: 0;
   padding: 0;
@@ -12,114 +11,96 @@
 
 body {
   background-color: #1e1e1e;
-  margin: 0;
-  font-family: 'Times New Roman', Times, serif;
   color: #ffffff;
+  font-family: 'Times New Roman', serif;
   line-height: 1.6;
 }
 
-/* ===== TOP NAVIGATION - Clean & Fixed (RED BAR FIX APPLIED) ===== */
+.content {
+  max-width: 1280px;
+  margin: auto;
+  padding: 32px 20px;
+}
+
 .topnav {
   background-color: #2b0006;
-  height: 70px;
+  height: clamp(55px, 8vw, 70px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.topnav > a {
+  position: absolute;
+  left: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: sticky;
-  top: 0;
-  padding: 0 40px;
-  box-sizing: border-box;
-  z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-}
-
-/* ORIGINAL .logo STYLES (REQUIRED FOR INDEX.HTML TO WORK) */
-.logo {
-  position: absolute;
-  left: 40px;
-  height: 50px;
-  width: 50px;
+  width: clamp(36px, 9vw, 55px);
+  height: clamp(36px, 9vw, 55px);
   border-radius: 50%;
-  border: 2px solid #000;
-  object-fit: cover;
+  overflow: hidden;
+  z-index: 1001;
 }
 
-/* MOVIE PAGE FIX: Styles for the <a> wrapper (Turns logo into back button) */
-.topnav > a {
-  /* Inherit positioning and size */
-  position: absolute; 
-  left: 40px; 
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  border: 2px solid #000;
-  overflow: hidden; 
-  z-index: 1001; 
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-.topnav > a:hover {
-  opacity: 0.8;
-}
-
-/* MOVIE PAGE FIX: Reset styles on the <img> inside the <a> (to prevent conflict) */
-.topnav > a > .logo {
-  /* Overrides position:absolute from the general .logo rule */
-  position: static !important; 
-  /* Make the image fill the <a> container, which now holds the styling */
+.topnav > a img.logo {
   width: 100%;
   height: 100%;
-  border-radius: 0;
-  border: none;
   object-fit: cover;
 }
 
 .logo_text {
-  color: #ffffff;
-  font-family: 'Godzilla', sans-serif;
-  font-size: 2rem;
-  letter-spacing: 2px;
-  text-align: center;
+  font-family: 'Godzilla';
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  color: #fff;
   white-space: nowrap;
+  padding-left: clamp(48px, 12vw, 70px); 
 }
 
-/* ===== MAIN CONTENT CONTAINER ===== */
-.content {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
-
-/* ===== HOMEPAGE: ERA SECTIONS (No changes) ===== */
 .era_title {
-  font-size: 1.75rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  margin: 40px 0 8px 0;
-  color: #ffffff;
-  font-family: 'Times New Roman', Times, serif;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  margin-top: 40px;
+  margin-bottom: 4px;
 }
 
 .underline {
+  width: 100%;
   height: 1px;
   background: #444;
-  margin: 0 0 24px 0;
-  display: block;
-  width: 100%;
+  margin: 10px 0 20px 0;
 }
 
-/* ===== POSTER GRID (No changes) ===== */
 .posters {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 24px;
-  margin-bottom: 50px;
+  gap: 18px;
+}
+
+@media (min-width: 901px) {
+  .posters {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}
+
+@media (max-width: 900px) and (min-width: 501px) {
+  .posters {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .posters {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px; 
+  }
 }
 
 .poster {
   cursor: pointer;
-  position: relative;
   transition: transform 0.2s ease;
 }
 
@@ -129,199 +110,152 @@ body {
 
 .poster img {
   width: 100%;
-  height: auto;
-  aspect-ratio: 2/3;
-  border-radius: 8px;
+  aspect-ratio: 2 / 3;
   object-fit: cover;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-  transition: box-shadow 0.2s ease;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.4);
 }
-
-.poster:hover img {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
-}
-
-/* ===== MOVIE DETAIL PAGE - IMDB Layout (Polished) ===== */
 
 .movie_title {
-  font-family: 'Godzilla', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 30px 0 8px 0;
-  letter-spacing: 1px;
-  line-height: 1.2;
-  text-align: center; 
+  font-family: 'Godzilla';
+  text-align: center;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  margin-bottom: 4px;
 }
 
 .movie_year {
-  font-size: 1rem;
+  text-align: center;
   color: #aaa;
-  margin-bottom: 32px;
-  font-weight: 400;
-  text-align: center; 
+  margin-bottom: 24px;
 }
 
-/* Main Content Grid (Poster + Trailer) */
+/* MOVIE DETAILS FINAL 3-AREA GRID LAYOUT */
 .movie_details {
-  display: grid; 
-  grid-template-columns: 300px 1fr;
+  display: grid;
+  /* Define two columns and two rows */
+  grid-template-columns: 340px 1fr; 
+  grid-template-rows: auto auto; 
   gap: 32px;
+  
+  /* Name the areas: Poster (top-left), Trailer (top-right), Info (full-bottom) */
+  grid-template-areas: 
+    "poster trailer"
+    "info info";
   align-items: start;
 }
 
-/* ===== LEFT COLUMN: POSTER (Same Length) ===== */
+/* 1. Poster Wrapper */
+.movie_poster_wrapper {
+    grid-area: poster;
+}
+
 .movie_poster {
   width: 100%;
-  height: 450px; 
-  object-fit: cover; 
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  transition: transform 0.2s ease;
-}
-
-.movie_poster:hover {
-  transform: scale(1.02);
-}
-
-/* ===== RIGHT COLUMN: TRAILER + INFO ===== */
-.movie_right {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-/* Trailer - Clean Video Container (Same Length) */
-.movie_trailer {
-  width: 100%;
-  height: 450px; 
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-  border: none;
+  aspect-ratio: 2 / 3;
+  height: auto; 
+  border-radius: 10px;
+  object-fit: cover;
   background: #000;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.4);
 }
 
-/* ===== MOVIE INFO (Reflowed under the poster) ===== */
-.movie_info {
-  background: none; 
+/* 2. Video Trailer (Widescreen and correctly placed) */
+.movie_trailer {
+  grid-area: trailer;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Ensures video is widescreen and not squashed */
+  height: auto; 
+  border-radius: 10px;
+  background: #000;
   border: none;
-  padding: 0;
-  border-radius: 0;
-  /* Negative margin trick to align with the left side (poster column) */
-  margin-left: calc(-300px - 32px); 
-  padding-top: 32px; 
-  margin-bottom: 0;
-  
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem 2rem;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.4);
 }
 
-.movie_info p {
-  margin: 0;
-  line-height: 1.7;
-  color: #e5e5e5;
-  font-size: 1rem;
+/* 3. Full-Width Information Block */
+.movie_info_full_width {
+    grid-area: info;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px; /* Add slight separation from the content above */
 }
 
-/* Genre, Director, Screenplay - Inline on the same line with space */
-.movie_info p:nth-child(-n+3) {
-  flex: 1 1 250px; 
-  min-width: 250px; 
+/* NEW STYLE: Align Genre, Director, Screenplay on one line */
+.movie_row_details {
+    display: flex;
+    justify-content: space-between; /* Pushes items to the ends and centers the middle one */
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 12px;
 }
 
-/* Plot - Full width, on its own line */
-.movie_info p:nth-child(4) { 
-  flex: 1 1 100%; 
-  font-size: 1.1rem;
-  font-style: italic;
-  opacity: 0.9;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 1.5rem;
-  margin-top: 0.5rem;
+/* Ensure the items themselves don't break onto new lines and are sized */
+.movie_row_details p {
+    white-space: nowrap;
+    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
 }
 
-/* Cast Details/Ratings - Full width, on its own line */
-.movie_info p:nth-child(5) { 
-  flex: 1 1 100%; 
-  font-size: 1.1rem;
-  font-weight: 400;
-  margin-top: 1rem;
+/* Center the Director text and allow it to take available space */
+.movie_row_details p:nth-child(2) {
+    text-align: center;
+    flex-grow: 1; 
 }
 
-.movie_info strong {
-  color: #ffffff;
-  font-weight: 600;
-  display: inline;
-  margin-right: 8px;
-  font-size: 0.95rem;
-  letter-spacing: 0.3px;
+.movie_info_full_width p {
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
 }
 
-/* Star Rating Styling (The actual rating) */
-.movie_info p:nth-child(5) strong { 
+.movie_info_full_width p:last-child strong {
   color: #ffd700;
   font-size: 1.3rem;
-  font-weight: 700;
+}
+.movie_info_full_width p:nth-child(1) strong,  /* Genre */
+.movie_info_full_width p:nth-child(2) strong,  /* Director */
+.movie_info_full_width p:nth-child(3) strong { /* Screenplay */
+    color: #ffd700;
+    font-size: 1.3rem;
 }
 
-/* ===== BOTTOM LINE (No changes) ===== */
-.bottomLine {
-  background: linear-gradient(90deg, transparent, #444, transparent);
-  height: 1px;
-  width: 100%;
-  margin-top: 60px;
-  opacity: 0.5;
-}
 
-/* ===== RESPONSIVE DESIGN (Synchronized Heights) ===== */
-
-/* Large Tablets */
-@media (max-width: 1024px) {
+@media (max-width: 900px) {
   .movie_details {
-    grid-template-columns: 260px 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
     gap: 24px;
+    grid-template-areas: 
+      "poster"
+      "trailer"
+      "info";
   }
-  .movie_poster, .movie_trailer {
-    height: 400px; 
-  }
-  .movie_info {
-    margin-left: calc(-260px - 24px); 
-  }
-}
-
-/* Tablets & Mobile - Stacking the layout */
-@media (max-width: 768px) {
-  .movie_details {
-    grid-template-columns: 1fr; 
-    gap: 24px;
-  }
-  .movie_poster {
-    max-width: 300px;
+  
+  .movie_poster_wrapper, .movie_trailer {
+    max-width: 420px;
     margin: 0 auto;
-    height: 380px; 
   }
-  .movie_trailer {
-    height: 380px; 
+  
+  /* Mobile adjustment for the detail row: stack them */
+  .movie_row_details {
+    flex-direction: column; 
+    align-items: flex-start;
+    gap: 8px;
   }
-  .movie_info {
-    margin-left: 0;
-    padding-top: 0;
-    margin-top: -16px; 
-  }
-  .movie_info p:nth-child(-n+3) {
-    flex: 1 1 100%; 
+
+  .movie_row_details p:nth-child(2) {
+    text-align: left;
   }
 }
 
 @media (max-width: 480px) {
-  .movie_poster {
-    height: 280px;
+  .content {
+    padding: 20px 12px;
   }
-  .movie_trailer {
-    height: 280px;
-  }
-  .movie_info {
-    padding: 0;
-  }
+}
+
+.bottomLine {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #444, transparent);
+  opacity: 0.4;
+  margin-top: 50px;
 }
