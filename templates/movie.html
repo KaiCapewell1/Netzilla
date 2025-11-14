@@ -1,56 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Netzilla</title>
+    <meta charset="UTF-8">
+    <title>Netzilla - {{ movie.title }}</title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
 </head>
-
 <body>
+
+    <!-- TOP NAVIGATION -->
     <div class="topnav">
         <a href="/">
-            <img class="logo" src="https://preview.redd.it/8g5hszxn3bn61.jpg?width=1080&crop=smart&auto=webp&s=83c03e68724e08e0921a0868dfb47ecbfdac7407" alt="Back to homePage" />
-    </a>
+            <img class="logo" src="https://preview.redd.it/8g5hszxn3bn61.jpg?width=1080&crop=smart&auto=webp&s=83c03e68724e08e0921a0868dfb47ecbfdac7407" alt="Back to Home" />
+        </a>
         <h1 class="logo_text">Net-zilla</h1>
     </div>
 
-<div class="content">
-    <h2 class="movie_title">{{ movie.title }}</h2>
-    <p class="movie_year">{{ movie.year }}</p>
+    <!-- MAIN CONTENT -->
+    <div class="content">
 
-    <div class="movie_details">
+        <!-- MOVIE HEADER -->
+        <h2 class="movie_title">{{ movie.title }}</h2>
+        <p class="movie_year">{{ movie.year }}</p>
 
-    <div class="movie_poster_wrapper">
-        <img class="movie_poster" src="{{ movie.poster_path }}" alt="{{ movie.title }} Poster" />
-    </div>
+        <!-- MOVIE LAYOUT -->
+        <div class="movie_details">
 
-    <iframe 
-        class="movie_trailer"
-        src="{{ movie.trailer | replace('watch?v=', 'embed/') }}" 
-        title="{{ movie.title }} Trailer"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen>
-    </iframe>
+            <!-- Poster -->
+            <div class="movie_poster_wrapper">
+                <img class="movie_poster" src="{{ movie.poster_path }}" alt="{{ movie.title }} Poster">
+            </div>
 
-    <div class="movie_info_full_width">
-       <div class="movie_info_full_width">
-    
-    <div class="movie_row_details">
-        <p><strong>Genre:</strong> {{ movie.genres | join(', ') }}</p>
-        <p><strong>Director:</strong> {{ movie.director }}</p>
-        <p><strong>Screenplay:</strong> {{ movie.screenplay }}</p>
-    </div>
-    
-    <p><strong>Plot:</strong> {{ movie.overview }}</p>
-    <p><strong>⭐</strong> {{ movie.ratings }}</p>
-</div>
-    </div>
+            <!-- Trailer -->
+            <iframe 
+                class="movie_trailer"
+                src="{{ movie.trailer | replace('watch?v=', 'embed/') }}" 
+                title="{{ movie.title }} Trailer"
+                frameborder="0"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
 
-</div>
+        </div>
 
-</div>
+        <!-- Movie Info -->
+        <div class="movie_info">
+
+            <!-- Genre / Director / Screenplay -->
+            <div class="movie_row_details">
+                <p>
+                    <span class="label">GENRE:</span>
+                    <span class="value">{{ movie.genres | join(', ') }}</span>
+                </p>
+                <p>
+                    <span class="label">DIRECTOR:</span>
+                    <span class="value">{{ movie.director }}</span>
+                </p>
+                <p>
+                    <span class="label">SCREENPLAY:</span>
+                    <span class="value">{{ movie.screenplay }}</span>
+                </p>
+            </div>
+
+            <!-- Plot -->
+            <p><strong>Plot:</strong> {{ movie.overview }}</p>
+
+            <!-- Rating -->
+            <p><strong>⭐</strong> {{ movie.ratings }}</p>
+
+        </div> <!-- /movie_info -->
+
+    </div> <!-- /content -->
+
 </body>
 </html>
