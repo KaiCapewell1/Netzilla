@@ -35,10 +35,10 @@ def fetch_poster(movie):
         if poster_path:
             return (movie_name, movie_year, f"{IMAGE_URL}{poster_path}", "tv")
         
-        return (movie_name, movie_year, None, "tv")
+        return(movie_name, movie_year, None, None)
     
 
-    return (movie_name, movie_year, None, None)
+    return (movie_name, movie_year, None)
 
 
 def Load_images():
@@ -62,9 +62,9 @@ def sort_posters(all_posters):
     return all_posters
 
 
-def fetch_movie_data(movie_title, movie_year, entertainment_type):
+def fetch_movie_data(movie_title, movie_year, entetainment_type):
     params = {"query": movie_title, "language": "en-US", "api_key": API_KEY, "year": movie_year}
-    response = requests.get(f"{BASE_URL}/search/{entertainment_type}", params=params)
+    response = requests.get(f"{BASE_URL}/search/{entetainment_type}", params=params)
     results = response.json().get("results", [])
 
     if not results:
@@ -72,7 +72,7 @@ def fetch_movie_data(movie_title, movie_year, entertainment_type):
     
     result = results[0]
 
-    details_response = requests.get(f"{BASE_URL}/{entertainment_type}/{result['id']}", params={"api_key": API_KEY, "language": "en-US"})
+    details_response = requests.get(f"{BASE_URL}/{entetainment_type}/{result['id']}", params={"api_key": API_KEY, "language": "en-US"})
     details = details_response.json()
 
 
@@ -91,7 +91,7 @@ def fetch_movie_data(movie_title, movie_year, entertainment_type):
 
     
 
-    if entertainment_type == "movie":
+    if entetainment_type == "movie":
         credits_response = requests.get(f"{BASE_URL}/movie/{details['id']}/credits", params={"api_key": API_KEY})
         credits = credits_response.json()
         for crew_member in credits.get("crew", []):
@@ -104,14 +104,14 @@ def fetch_movie_data(movie_title, movie_year, entertainment_type):
 
     movie_data["trailer"] = get_yt_trailer_link(movie_title, movie_year)
 
-    if entertainment_type == "tv":
+    if entetainment_type == "tv":
         creators = result.get("created_by", [])
         movie_data["creator"] = [c.get("name") for c in creators] if creators else None
 
     return movie_data
 
 def get_yt_trailer_link(movie_title, movie_year):
-    query = f"{movie_title} {movie_year} TOHO channel japanese trailer"
+    query = f"{movie_title} {movie_year} japan trailer"
     youtube_search_url = "https://www.googleapis.com/youtube/v3/search"
     params = {
         "part": "snippet",
@@ -121,7 +121,11 @@ def get_yt_trailer_link(movie_title, movie_year):
         "type": "video"
     }
     response = requests.get(youtube_search_url, params=params)
-    response.raise_for_status()
+    try:
+        response.raise_for_status()
+    except requests.HTTPError:
+        print("youtube API error")
+        return None
     results = response.json().get("items", [])
     if results:
         video_id = results[0]["id"]["videoId"]
@@ -132,5 +136,3 @@ def get_yt_trailer_link(movie_title, movie_year):
 
 if __name__ == "__main__":
     Load_images()
-
-    

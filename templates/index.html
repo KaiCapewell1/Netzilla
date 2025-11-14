@@ -1,22 +1,25 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Netzilla</title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 </head>
 
 <body>
     <div class="topnav">
-        <img class="logo" src="https://preview.redd.it/8g5hszxn3bn61.jpg?width=1080&crop=smart&auto=webp&s=83c03e68724e08e0921a0868dfb47ecbfdac7407" alt="Logo" />
+        <a href="/">
+            <img class="logo" src="https://preview.redd.it/8g5hszxn3bn61.jpg?width=1080&crop=smart&auto=webp&s=83c03e68724e08e0921a0868dfb47ecbfdac7407" alt="Logo" />
+        </a>
         <h1 class="logo_text">Net-zilla</h1>
     </div>
 
     <div class = "content">
         {% for era, movies_list in posters.items() %}
         <h2 class="era_title">{{ era }}</h2>
-        <line class="underline"></line>
+        <div class="underline"></div>
         <div class ="posters">
             {% for movie_name, movie_year, poster_url, _ in posters[era] %}
                 <div class="poster">

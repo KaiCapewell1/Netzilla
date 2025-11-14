@@ -1,9 +1,11 @@
+/* =========================================================
+   GLOBAL
+   ========================================================= */
 @font-face {
   font-family: 'Godzilla';
   src: url('../fonts/Godzilla.ttf') format('truetype');
 }
 
-/* ===== BASE STYLES ===== */
 * {
   margin: 0;
   padding: 0;
@@ -12,114 +14,106 @@
 
 body {
   background-color: #1e1e1e;
-  margin: 0;
-  font-family: 'Times New Roman', Times, serif;
   color: #ffffff;
+  font-family: 'Times New Roman', serif;
   line-height: 1.6;
+  word-wrap: break-word;
 }
 
-/* ===== TOP NAVIGATION - Clean & Fixed (RED BAR FIX APPLIED) ===== */
+.content {
+  max-width: 1280px;
+  margin: auto;
+  padding: 32px 20px;
+}
+
+/* =========================================================
+   TOP NAV
+   ========================================================= */
 .topnav {
+  display: flex;
+  justify-content: center; /* always center the text */
+  align-items: center;
+  position: sticky;
+  top: 0;
+  height: clamp(55px, 8vw, 70px);
   background-color: #2b0006;
-  height: 70px;
+  padding: 0 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+.topnav > a {
+  flex-shrink: 0;
+  width: clamp(32px, 8vw, 50px);
+  height: clamp(32px, 8vw, 50px);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: sticky;
-  top: 0;
-  padding: 0 40px;
-  box-sizing: border-box;
-  z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-}
-
-/* ORIGINAL .logo STYLES (REQUIRED FOR INDEX.HTML TO WORK) */
-.logo {
-  position: absolute;
-  left: 40px;
-  height: 50px;
-  width: 50px;
   border-radius: 50%;
-  border: 2px solid #000;
-  object-fit: cover;
+  overflow: hidden;
 }
 
-/* MOVIE PAGE FIX: Styles for the <a> wrapper (Turns logo into back button) */
-.topnav > a {
-  /* Inherit positioning and size */
-  position: absolute; 
-  left: 40px; 
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  border: 2px solid #000;
-  overflow: hidden; 
-  z-index: 1001; 
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-.topnav > a:hover {
-  opacity: 0.8;
-}
-
-/* MOVIE PAGE FIX: Reset styles on the <img> inside the <a> (to prevent conflict) */
 .topnav > a > .logo {
-  /* Overrides position:absolute from the general .logo rule */
-  position: static !important; 
-  /* Make the image fill the <a> container, which now holds the styling */
   width: 100%;
   height: 100%;
-  border-radius: 0;
-  border: none;
+  border-radius: 50%;
   object-fit: cover;
 }
 
 .logo_text {
-  color: #ffffff;
-  font-family: 'Godzilla', sans-serif;
-  font-size: 2rem;
-  letter-spacing: 2px;
+  font-family: 'Godzilla';
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  color: #fff;
   text-align: center;
+  margin: 0 1rem;
   white-space: nowrap;
 }
 
-/* ===== MAIN CONTENT CONTAINER ===== */
-.content {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
-
-/* ===== HOMEPAGE: ERA SECTIONS (No changes) ===== */
+/* =========================================================
+   ERA HEADERS / HOME PAGE
+   ========================================================= */
 .era_title {
-  font-size: 1.75rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  margin: 40px 0 8px 0;
-  color: #ffffff;
-  font-family: 'Times New Roman', Times, serif;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  margin-top: 40px;
+  margin-bottom: 4px;
 }
 
 .underline {
+  width: 100%;
   height: 1px;
   background: #444;
-  margin: 0 0 24px 0;
-  display: block;
-  width: 100%;
+  margin: 10px 0 20px 0;
 }
 
-/* ===== POSTER GRID (No changes) ===== */
+/* Posters grid */
 .posters {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 24px;
-  margin-bottom: 50px;
+  gap: 20px;
+}
+
+/* Desktop: auto-fill grid */
+@media (min-width: 901px) {
+  .posters {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+/* Tablets: 3 per row */
+@media (max-width: 900px) and (min-width: 501px) {
+  .posters {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Phones: 2 per row, bigger posters */
+@media (max-width: 500px) {
+  .posters {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .poster {
   cursor: pointer;
-  position: relative;
   transition: transform 0.2s ease;
 }
 
@@ -129,136 +123,84 @@ body {
 
 .poster img {
   width: 100%;
-  height: auto;
   aspect-ratio: 2/3;
-  border-radius: 8px;
   object-fit: cover;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-  transition: box-shadow 0.2s ease;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.4);
 }
 
-.poster:hover img {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
-}
-
-/* ===== MOVIE DETAIL PAGE - IMDB Layout (Polished) ===== */
-
+/* =========================================================
+   MOVIE PAGE
+   ========================================================= */
 .movie_title {
-  font-family: 'Godzilla', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 30px 0 8px 0;
-  letter-spacing: 1px;
-  line-height: 1.2;
-  text-align: center; 
+  font-family: 'Godzilla';
+  text-align: center;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  margin-bottom: 4px;
 }
 
 .movie_year {
-  font-size: 1rem;
+  text-align: center;
   color: #aaa;
-  margin-bottom: 32px;
-  font-weight: 400;
-  text-align: center; 
+  margin-bottom: 24px;
 }
 
-/* Main Content Grid (Poster + Trailer) */
+/* Desktop layout: poster + info + trailer */
 .movie_details {
-  display: grid; 
+  display: grid;
   grid-template-columns: 300px 1fr;
   gap: 32px;
   align-items: start;
 }
 
-/* ===== LEFT COLUMN: POSTER (Same Length) ===== */
+/* Poster wrapper prevents zooming issues */
+.movie_poster_wrapper {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
 .movie_poster {
   width: 100%;
-  height: 450px; 
-  object-fit: cover; 
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  transition: transform 0.2s ease;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.4);
 }
 
-.movie_poster:hover {
-  transform: scale(1.02);
+.movie_trailer {
+  width: 100%;
+  border-radius: 10px;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: none;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.4);
 }
 
-/* ===== RIGHT COLUMN: TRAILER + INFO ===== */
+/* Right column: info + trailer */
 .movie_right {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
-/* Trailer - Clean Video Container (Same Length) */
-.movie_trailer {
-  width: 100%;
-  height: 450px; 
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-  border: none;
-  background: #000;
-}
-
-/* ===== MOVIE INFO (Reflowed under the poster) ===== */
 .movie_info {
-  background: none; 
-  border: none;
-  padding: 0;
-  border-radius: 0;
-  /* Negative margin trick to align with the left side (poster column) */
-  margin-left: calc(-300px - 32px); 
-  padding-top: 32px; 
-  margin-bottom: 0;
-  
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem 2rem;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .movie_info p {
-  margin: 0;
-  line-height: 1.7;
-  color: #e5e5e5;
-  font-size: 1rem;
-}
-
-/* Genre, Director, Screenplay - Inline on the same line with space */
-.movie_info p:nth-child(-n+3) {
-  flex: 1 1 250px; 
-  min-width: 250px; 
-}
-
-/* Plot - Full width, on its own line */
-.movie_info p:nth-child(4) { 
-  flex: 1 1 100%; 
-  font-size: 1.1rem;
-  font-style: italic;
-  opacity: 0.9;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 1.5rem;
-  margin-top: 0.5rem;
-}
-
-/* Cast Details/Ratings - Full width, on its own line */
-.movie_info p:nth-child(5) { 
-  flex: 1 1 100%; 
-  font-size: 1.1rem;
-  font-weight: 400;
-  margin-top: 1rem;
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
 }
 
 /* Default strong styling */
 .movie_info strong {
-  color: #ffffff;
   font-weight: 600;
-  display: inline;
-  margin-right: 8px;
-  font-size: 0.95rem;
-  letter-spacing: 0.3px;
 }
 
+<<<<<<< HEAD
 /* NEW: Genre, Director, Screenplay Title Styling */
 .movie_info p:nth-child(-n+3) strong {
     color: #ffd700; /* Gold Yellow */
@@ -268,68 +210,59 @@ body {
 
 /* Star Rating Styling (The actual rating) - Keeping the same gold color */
 .movie_info p:nth-child(5) strong { 
+=======
+.movie_info p:last-child strong {
+>>>>>>> 6bca0c02b10c934387d8c7ea0acc2fa5b34cd1ef
   color: #ffd700;
   font-size: 1.3rem;
-  font-weight: 700;
 }
 
-/* ===== BOTTOM LINE (No changes) ===== */
-.bottomLine {
-  background: linear-gradient(90deg, transparent, #444, transparent);
-  height: 1px;
-  width: 100%;
-  margin-top: 60px;
-  opacity: 0.5;
-}
-
-/* ===== RESPONSIVE DESIGN (Synchronized Heights) ===== */
-
-/* Large Tablets */
-@media (max-width: 1024px) {
+/* =========================================================
+   RESPONSIVE: MOBILE / TABLET
+   ========================================================= */
+@media (max-width: 900px) {
   .movie_details {
-    grid-template-columns: 260px 1fr;
+    grid-template-columns: 1fr;
     gap: 24px;
   }
-  .movie_poster, .movie_trailer {
-    height: 400px; 
-  }
-  .movie_info {
-    margin-left: calc(-260px - 24px); 
-  }
-}
 
-/* Tablets & Mobile - Stacking the layout */
-@media (max-width: 768px) {
-  .movie_details {
-    grid-template-columns: 1fr; 
-    gap: 24px;
+  /* Stack poster → info → trailer */
+  .movie_right {
+    flex-direction: column-reverse;
+    gap: 16px;
   }
+
+  .movie_poster_wrapper {
+    max-width: 420px;
+  }
+
   .movie_poster {
-    max-width: 300px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
     margin: 0 auto;
-    height: 380px; 
   }
+
   .movie_trailer {
-    height: 380px; 
-  }
-  .movie_info {
-    margin-left: 0;
-    padding-top: 0;
-    margin-top: -16px; 
-  }
-  .movie_info p:nth-child(-n+3) {
-    flex: 1 1 100%; 
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
   }
 }
 
 @media (max-width: 480px) {
-  .movie_poster {
-    height: 280px;
+  .content {
+    padding: 20px 12px;
   }
-  .movie_trailer {
-    height: 280px;
-  }
-  .movie_info {
-    padding: 0;
-  }
+}
+
+/* =========================================================
+   FOOTER LINE
+   ========================================================= */
+.bottomLine {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #444, transparent);
+  opacity: 0.4;
+  margin-top: 50px;
 }
