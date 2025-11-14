@@ -111,7 +111,7 @@ def fetch_movie_data(movie_title, movie_year, entetainment_type):
     return movie_data
 
 def get_yt_trailer_link(movie_title, movie_year):
-    query = f"{movie_title} {movie_year} TOHO channel japanese trailer"
+    query = f"{movie_title} {movie_year} japan trailer"
     youtube_search_url = "https://www.googleapis.com/youtube/v3/search"
     params = {
         "part": "snippet",
