@@ -1,4 +1,4 @@
-flask
-mangum
+Flask
 requests
 python-dotenv
+gunicorn
