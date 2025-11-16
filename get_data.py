@@ -58,7 +58,7 @@ def Load_images():
 
 def sort_posters(all_posters):
     for era, posters in all_posters.items():
-        posters.sort(key=lambda x: (x[1] if x[1] is not None else 0, x[0])) # Sort by year, then by name
+        posters.sort(key=lambda x: (x[1] is None, x[1] if x[1] is not None else 0, x[0])) # Sort by year, then by name
     return all_posters
 
 
