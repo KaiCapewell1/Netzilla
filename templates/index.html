@@ -21,7 +21,7 @@
         <h2 class="era_title">{{ era }}</h2>
         <div class="underline"></div>
         <div class ="posters">
-            {% for movie_name, movie_year, poster_url, _ in posters[era] %}
+            {% for movie_name, movie_year, poster_url, ent_type, country in posters[era] %}
                 <div class="poster">
                     <img src="{{ poster_url }}" alt="{{ movie_name }}" 
                     onclick="posterClick(event, '{{ movie_year }}')">
@@ -35,29 +35,25 @@
 </body>
 
 <script>
-function posterClick(event, movie_year) {
+function posterClick(event, movie_year, movie_country) {
     fetch("/poster_click", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             title: event.target.alt,
-            year: movie_year
+            year: movie_year,
+            country: movie_country
         })
     })
-    .then(response => {
-        if (!response.ok) throw new Error("Server error: " + response.status);
-        return response.text(); // Flask returns HTML
-    })
+    .then(response => response.text())
     .then(html => {
-        // Replace current page with returned HTML
         document.open();
         document.write(html);
         document.close();
     })
-    .catch(error => {
-        console.error("Error:", error);
-    });
+    .catch(error => console.error("Error:", error));
 }
+
 </script>
 
 </html>

@@ -9,7 +9,6 @@
 </head>
 <body>
 
-    <!-- TOP NAVIGATION -->
     <div class="topnav">
         <a href="/">
             <img class="logo" src="https://preview.redd.it/8g5hszxn3bn61.jpg?width=1080&crop=smart&auto=webp&s=83c03e68724e08e0921a0868dfb47ecbfdac7407" alt="Back to Home" />
@@ -17,22 +16,18 @@
         <h1 class="logo_text">Net-zilla</h1>
     </div>
 
-    <!-- MAIN CONTENT -->
     <div class="content">
 
-        <!-- MOVIE HEADER -->
         <h2 class="movie_title">{{ movie.title }}</h2>
-        <p class="movie_year">{{ movie.year }}</p>
+        <p class="movie_year">{{ movie.year }} | {{ movie.country }}</p>
 
-        <!-- MOVIE LAYOUT -->
         <div class="movie_details">
 
-            <!-- Poster -->
             <div class="movie_poster_wrapper">
                 <img class="movie_poster" src="{{ movie.poster_path }}" alt="{{ movie.title }} Poster">
             </div>
 
-            <!-- Trailer -->
+            {% if movie.trailer %}
             <iframe 
                 class="movie_trailer"
                 src="{{ movie.trailer | replace('watch?v=', 'embed/') }}" 
@@ -41,38 +36,37 @@
                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen>
             </iframe>
+            {% else %}
+            <div class="movie_trailer">
+                <p>Trailer not available</p>
+            </div>
+            {% endif %}
 
         </div>
 
-        <!-- Movie Info -->
         <div class="movie_info">
 
-            <!-- Genre / Director / Screenplay -->
             <div class="movie_row_details">
-    <p class="left">
-        <span class="label">GENRE:</span>
-        <span class="value">{{ movie.genres | join(', ') }}</span>
-    </p>
-    <p class="center">
-        <span class="label">DIRECTOR:</span>
-        <span class="value">{{ movie.director }}</span>
-    </p>
-    <p class="right">
-        <span class="label">SCREENPLAY:</span>
-        <span class="value">{{ movie.screenplay }}</span>
-    </p>
-</div>
+                <p class="left">
+                    <span class="label">GENRE:</span>
+                    <span class="value">{{ movie.genres | join(', ') }}</span>
+                </p>
+                <p class="center">
+                    <span class="label">DIRECTOR:</span>
+                    <span class="value">{{ movie.director or 'N/A' }}</span>
+                </p>
+                <p class="right">
+                    <span class="label">SCREENPLAY:</span>
+                    <span class="value">{{ movie.screenplay or 'N/A' }}</span>
+                </p>
+            </div>
 
-
-            <!-- Plot -->
             <p><strong>Plot:</strong> {{ movie.overview }}</p>
-
-            <!-- Rating -->
             <p><strong>⭐</strong> {{ movie.ratings }}</p>
 
-        </div> <!-- /movie_info -->
+        </div>
 
-    </div> <!-- /content -->
+    </div>
 
 </body>
 </html>
