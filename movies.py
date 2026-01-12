@@ -45,7 +45,7 @@ era_movies = {
         ("Godzilla: The Planet Eater", 2018, "Japan"),
         ("Godzilla Singular Point", 2021, "Japan"),
         ("Godzilla Minus One", 2023, "Japan"),
-        ("Godzilla Minus Zero", None, "Japan") 
+        ("Godzilla Minus Zero", 2026, "Japan") 
     ],
 
     "The MonsterVerse": [
